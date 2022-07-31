@@ -1,28 +1,36 @@
 package entidade;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Pruu {
 		
-		private int id = ThreadLocalRandom.current().nextInt(25);
+		private int id;
+		private static int contador = 1;
 		private String texto;
 		private Date data;
 		private int quantidadeLike;
 		private boolean bloquear;
+		private String dataformatada;
 	
 		
 		//Construtores//
 		public Pruu() {
 			super();
-			
 		}
 		public Pruu(String texto) {
 			super();
 			if((texto.length() > 300) || (texto.trim().length() < 1)) {
 				System.out.println("Texto excede o limite de caracter");
 			}		
+			this.id = contador++;
 			this.texto = texto;	
+			this.data = new Date();
+			SimpleDateFormat formatador = new SimpleDateFormat("dd-MM-yyyy");
+			String dataformatada = formatador.format(data);
+			this.dataformatada = dataformatada;
+			this.quantidadeLike = 0;
+			this.bloquear = false;
 		}
 		
 		public void somarLike () {
@@ -48,9 +56,6 @@ public class Pruu {
 		public int getQuantidadeLike() {
 			return quantidadeLike;
 		}
-		public void setQuantidadeLike(int quantidadeLike) {
-			this.quantidadeLike = quantidadeLike;
-		}
 		public boolean isBloquear() {
 			return bloquear;
 		}
@@ -60,8 +65,11 @@ public class Pruu {
 	
 		@Override
 		public String toString() {
-			return "Pruu [id=" + id + ", texto=" + texto + ", data=" + data + ", quantidadeLike=" + quantidadeLike
-					+ "]";
+			if (isBloquear()) {
+				return "Pruu" + "\nid: " + this.id + "\nBloqueado";
+			}
+			return "\nPruu" + "\nid: " + this.id + "\nTexto: " + this.texto + "\nQuantidade de likes: " + this.quantidadeLike
+					+ "\nData de criação: " + this.dataformatada;
 		}
 
 

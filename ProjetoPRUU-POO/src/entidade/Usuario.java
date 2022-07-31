@@ -8,18 +8,18 @@ public class Usuario {
 	private String email;
 	private ArrayList <Pruu> pruus;
 	
+	
+	public Usuario() {
+		super();
+	}
+
 	public Usuario(String nome, String cpf, String email) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		}
-	
-	public void criarPruu(Pruu pruu) {
-		pruus.add(pruu);
-	}
-	
-	
+
 	public void darLike(Pruu like) {
 		like.somarLike();
 
